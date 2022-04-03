@@ -1,9 +1,7 @@
-import itertools
-
+import random
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import signal
-import random
 
 
 def square_gen(length, num_of_pulses):
@@ -18,7 +16,6 @@ def square_gen(length, num_of_pulses):
         random_list.append(n)
 
     random_list.sort()
-    # random_comps2 = list(itertools.combinations(random_list, 2))
     random_comps = list(zip(random_list, random_list[1:]))[::2]
 
     # przydzielanie wartosci 1 do losowych przedziałów
@@ -41,19 +38,12 @@ NUM_OF_PULS = 5
 # generacja sygnalu
 sygnal = square_gen(LENGTH, NUM_OF_PULS)
 
-# # wydluzanie sygnalu zerami
-# sygnal_lengthened = np.append(np.zeros(LENGTH), sygnal)
-#
-# # obracanie sygnalu
-# flipped = sygnal_lengthened[::-1]
-
 # zaszumianie
 noise = np.random.normal(0, 0.8, LENGTH)
 sygnal_szum = sygnal + noise
 
 # aplikacja filtru dopasowanego
 matched_filter = matched_filtering(sygnal, sygnal_szum)
-# matched_filter = signal.decimate(signal.lfilter(sygnal_szum, 1, flipped), 2)
 
 
 # rysowanie wykresów
